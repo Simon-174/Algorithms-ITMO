@@ -1,6 +1,7 @@
 from math import sin, ceil, sqrt
 import matplotlib.pyplot as plt
 
+
 # Defining considering functions
 def f1(x):
     return x**3
@@ -12,6 +13,7 @@ def f2(x):
 
 def f3(x):
     return x * sin(1/x)
+
 
 # Implementing optimization methods
 def exh_search(f, a, b, eps=0.0001):
