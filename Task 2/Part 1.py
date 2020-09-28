@@ -1,9 +1,7 @@
 from math import sin, ceil, sqrt
-import numpy as np
-from scipy.optimize import minimize
 import matplotlib.pyplot as plt
 
-
+# Defining considering functions
 def f1(x):
     return x**3
 
@@ -15,7 +13,7 @@ def f2(x):
 def f3(x):
     return x * sin(1/x)
 
-
+# Implementing optimization methods
 def exh_search(f, a, b, eps=0.0001):
     n = ceil((b - a) / eps)
     x_list = [a + k * (b - a) / n for k in range(n + 1)]
@@ -48,7 +46,7 @@ def dichotomy(f, a, b, eps=0.0001):
     return x_min, numb_iter, numb_func
 
 
-def gold_section(f, a, b, eps=0.0001):
+def golden_section(f, a, b, eps=0.0001):
     x1 = a + (sqrt(5) - 1)/2 * (b - a)
     x2 = b - (sqrt(5) - 1)/2 * (b - a)
     fx1 = f(x1)
@@ -73,20 +71,27 @@ def gold_section(f, a, b, eps=0.0001):
     return x_min, numb_iter, numb_func
 
 
+# Creating tuples to make a loop for plotting
 f = (f1, f2, f3)
 a = (0, 0, 0.01)
 titles = ('Cubic parabola', 'f(x) = |x - 0.2|', 'f(x) = x * sin(1 / x)')
+
+# Plotting graphs for each function
 for i in range(3):
+    # Set x-axis for plotting: for f1 and f2 0 <= x <= 1, for f3 0.01 <= x <= 1
     if i != 2:
         xdata = [n / 100 for n in range(-10, 101)]
     else:
         xdata = [n / 100 for n in range(1, 101)]
-    x_opt = (exh_search(f[i], a[i], 1)[0], dichotomy(f[i], a[i], 1)[0], gold_section(f[i], a[i], 1)[0])
-    numb_iter = (str(exh_search(f[i], a[i], 1)[1]), str(dichotomy(f[i], a[i], 1)[1]), str(gold_section(f[i], a[i], 1)[1]))
-    numb_func = (str(exh_search(f[i], a[i], 1)[2]), str(dichotomy(f[i], a[i], 1)[2]), str(gold_section(f[i], a[i], 1)[2]))
+    # Creating tuples to output x_min, number of function calls and number of iterations for each method
+    x_opt = (exh_search(f[i], a[i], 1)[0], dichotomy(f[i], a[i], 1)[0], golden_section(f[i], a[i], 1)[0])
+    numb_iter = (str(exh_search(f[i], a[i], 1)[1]), str(dichotomy(f[i], a[i], 1)[1]), str(golden_section(f[i], a[i], 1)[1]))
+    numb_func = (str(exh_search(f[i], a[i], 1)[2]), str(dichotomy(f[i], a[i], 1)[2]), str(golden_section(f[i], a[i], 1)[2]))
+    # Set y-axis for plotting
     ydata = []
     for x in xdata:
         ydata.append(f[i](x))
+    # Plotting
     plt.plot(xdata, ydata, 'b', label='graph of function')
     plt.scatter(x_opt[0], f[i](x_opt[0]), c='y', label='exhaustive search, numb_iter = ' + numb_iter[0] + ', numb_func = ' + numb_func[0])
     plt.scatter(x_opt[1], f[i](x_opt[1]), c='g', label='dichotomy, numb_iter = ' + numb_iter[1] + ', numb_func = ' + numb_func[1])
@@ -97,6 +102,3 @@ for i in range(3):
     plt.legend(loc='upper left')
     plt.tight_layout()
     plt.show()
-
-
-
