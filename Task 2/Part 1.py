@@ -80,7 +80,7 @@ titles = ('Cubic parabola', 'f(x) = |x - 0.2|', 'f(x) = x * sin(1 / x)')
 
 # Plotting graphs for each function
 for i in range(3):
-    # Set x-axis for plotting: for f1 and f2 0 <= x <= 1, for f3 0.01 <= x <= 1
+    # Setting x-axis for plotting: for f1 and f2 0 <= x <= 1, for f3 0.01 <= x <= 1
     if i != 2:
         xdata = [n / 100 for n in range(-10, 101)]
     else:
@@ -89,7 +89,7 @@ for i in range(3):
     x_opt = (exh_search(f[i], a[i], 1)[0], dichotomy(f[i], a[i], 1)[0], golden_section(f[i], a[i], 1)[0])
     numb_iter = (str(exh_search(f[i], a[i], 1)[1]), str(dichotomy(f[i], a[i], 1)[1]), str(golden_section(f[i], a[i], 1)[1]))
     numb_func = (str(exh_search(f[i], a[i], 1)[2]), str(dichotomy(f[i], a[i], 1)[2]), str(golden_section(f[i], a[i], 1)[2]))
-    # Set y-axis for plotting
+    # Calculating y values for plotting
     ydata = []
     for x in xdata:
         ydata.append(f[i](x))
